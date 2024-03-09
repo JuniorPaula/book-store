@@ -32,7 +32,25 @@ export default {
   },
   methods: {
     submitHandler() {
-      console.log('Form submitted')
+      const payload = {
+        email: this.email,
+        password: this.password
+      }
+
+      const requestOptions = {
+        method: 'POST',
+        body: JSON.stringify(payload),
+      }
+
+      fetch('http://localhost:8081/users/login', requestOptions)
+        .then(response => response.json())
+        .then(data => {
+          if (data.error) {
+            console.log('Error:', data.message)
+          } else {
+            console.log(data)
+          }
+        })
     }
   }
 }
