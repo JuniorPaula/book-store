@@ -5,8 +5,8 @@
         <h1>Login</h1>
         <hr>
         <form-tag @submitEvent="submitHandler" name="myform" event="submitEvent">
-          <text-input v-model="email" label="Email" name="email" type="email" required="true"></text-input>
-          <text-input v-model="password" label="Password" name="password" type="password" required="true"></text-input>
+          <text-input v-model="email" label="Email" name="email" type="email" :required="true"></text-input>
+          <text-input v-model="password" label="Password" name="password" type="password" :required="true"></text-input>
           <input type="submit" class="btn btn-primary" value="Login">
         </form-tag>
       </div>
@@ -15,6 +15,7 @@
 </template>
 
 <script>
+import { store } from './store.js'
 import TextInput from './forms/TextInput.vue'
 import FormTag from './forms/FormTag.vue'
 
@@ -27,7 +28,8 @@ export default {
   data() {
     return {
       email: '',
-      password: ''
+      password: '',
+      store,
     }
   },
   methods: {
@@ -49,6 +51,7 @@ export default {
             console.log('Error:', data.message)
           } else {
             console.log(data)
+            store.token = data.data.token.token
           }
         })
     }
