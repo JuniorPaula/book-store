@@ -18,6 +18,8 @@
 import { store } from './store.js'
 import TextInput from './forms/TextInput.vue'
 import FormTag from './forms/FormTag.vue'
+import router from '../router/index.js'
+import notie from 'notie'
 
 export default {
   name: 'Login',
@@ -48,10 +50,15 @@ export default {
         .then(response => response.json())
         .then(data => {
           if (data.error) {
-            console.log('Error:', data.message)
+            notie.alert({
+              type: 'error',
+              text: data.message,
+              time: 3
+            })
           } else {
             console.log(data)
             store.token = data.data.token.token
+            router.push('/')
           }
         })
     }
