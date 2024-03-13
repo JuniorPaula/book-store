@@ -48,6 +48,7 @@
 </template>
 
 <script>
+import { Security } from './security.js'
 import { store } from './store.js'
 import router from '../router/index.js'
 
@@ -63,12 +64,8 @@ export default {
       const payload = {
         token: store.token,
       }
-      const requestOptions = {
-        method: 'POST',
-        body: JSON.stringify(payload),
-      }
 
-      fetch(`${process.env.VUE_APP_API_URL}/users/logout`, requestOptions)
+      fetch(`${process.env.VUE_APP_API_URL}/users/logout`, Security.requestOptions(payload))
         .then(response => response.json())
         .then(data => {
           if (data.error) {
