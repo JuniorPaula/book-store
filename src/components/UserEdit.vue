@@ -152,8 +152,41 @@ export default {
         })
       })
     },
-    confirmDelete() {
-      // 
+    confirmDelete(id) {
+      notie.confirm({
+        text: 'Are you sure you want to delete this user?',
+        submitText: 'Delete',
+        submitCallback: function() {
+          let payload = {
+            id: id
+          }
+
+          fetch(`${process.env.VUE_APP_API_URL}/admin/users/delete`, Security.requestOptions(payload))
+            .then(response => response.json())
+            .then(data => {
+              if (data.error) {
+                notie.alert({
+                  type: 'error',
+                  text: data.message,
+                  time: 3
+                })
+              } else {
+                notie.alert({
+                  type: 'success',
+                  text: 'User deleted successfully',
+                  time: 3
+                })
+              }
+            })
+            .catch(() => {
+              notie.alert({
+                type: 'error',
+                text: 'An error occurred while deleting the user',
+                time: 3
+              })
+            })
+        }
+      })
     }
   }
 }
