@@ -13,6 +13,7 @@
       @input="$emit('update:modelValue', $event.target.value)"
       class="form-control"
     >
+    <div class="form-text">{{ help }}</div>
   </div>
 </template>
 
@@ -49,6 +50,10 @@ export default {
       default: 100
     },
     modelValue: {
+      type: String,
+      default: ''
+    },
+    help: {
       type: String,
       default: ''
     }

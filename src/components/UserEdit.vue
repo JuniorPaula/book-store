@@ -2,7 +2,10 @@
   <div class="container">
     <div class="row">
       <div class="col">
-        <h1 class="mt-3">User Edit</h1>
+        <h1 class="mt-3">
+          <span v-if="this.$route.params.userId > 0">Edit User</span>
+          <span v-else >Add New User</span>
+        </h1>
         <hr />
 
         <FormTag @userEditEvent="submitHandler" name="userform" event="userEditEvent">
@@ -43,6 +46,16 @@
             name="password"
           />
 
+          <TextInput
+            v-else
+            v-model="user.password"
+            type="password"
+            label="Password"
+            help="Leave blank to keep the existing password"
+            :value="user.password"
+            name="password"
+          />
+
           <hr>
           <div class="float-start">
             <input type="submit" class="btn btn-primary me-2" value="Save">
@@ -72,8 +85,20 @@ export default {
     Security.requireToken()
 
     if (parseInt(String(this.$route.params['userId']), 10) > 0) {
-      // editing the existing user
-      // TODO: Get the user data from the database
+      fetch(`${process.env.VUE_APP_API_URL}/admin/users/get/${this.$route.params['userId']}`, Security.requestOptions(''))
+        .then(response => response.json())
+        .then(data => {
+          if (data.error) {
+            notie.alert({
+              type: 'error',
+              text: data.message,
+              time: 3
+            })
+          } else {
+            this.user = data
+            this.user.password = ''
+          }
+        })
     }
   },
   data() {
@@ -84,7 +109,6 @@ export default {
         last_name: '',
         email: '',
         password: '',
-        password_confirmation: ''
       },
       store
     }
