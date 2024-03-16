@@ -6,7 +6,7 @@
       </div>
       <hr>
 
-      <table class="table table-compact table-striped">
+      <table v-if="this.ready" class="table table-compact table-striped">
         <thead>
           <tr>
             <th>User</th>
@@ -22,6 +22,7 @@
           </tr>
         </tbody>
       </table>
+      <p v-else class="text-center">Loading...</p>
     </div>
   </div>
 </template>
@@ -33,7 +34,8 @@ import notie from 'notie'
 export default {
   data() {
     return {
-      users: []
+      users: [],
+      ready: false,
     }
   },
   beforeMount() {
@@ -46,6 +48,7 @@ export default {
           notie.alert({ type: 'error', text: data.message, time: 3 })
         } else {
           this.users = data.data.users
+          this.ready = true
         }
       })
       .catch(error => {
