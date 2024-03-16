@@ -78,7 +78,18 @@ export default {
           text: 'Are you sure you want to log this user out?',
           submitText: 'Lot out',
           submitCallback: function() {
-            console.log('log out user', id)
+            fetch(`${process.env.VUE_APP_API_URL}/admin/log-user-out/${id}`, Security.requestOptions(''))
+              .then(response => response.json())
+              .then(data => {
+                if (data.error) {
+                  notie.alert({ type: 'error', text: data.message, time: 3 })
+                } else {
+                  notie.alert({ type: 'success', text: data.message, time: 3 })
+                }
+              })
+              .catch(error => {
+                notie.alert({ type: 'error', text: error.message, time: 3 })
+              })
           }
         })
       } else {
