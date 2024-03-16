@@ -78,7 +78,7 @@ import { store } from './store.js'
 import FormTag from './forms/FormTag.vue'
 import TextInput from './forms/TextInput.vue'
 import notie from 'notie'
-// import router from '../router/index.js'
+import router from '../router/index.js'
 
 export default {
   beforeMount() {
@@ -89,11 +89,10 @@ export default {
         .then(response => response.json())
         .then(data => {
           if (data.error) {
-            notie.alert({
-              type: 'error',
-              text: data.message,
-              time: 3
-            })
+            // This emit an error event to the parent component
+            // The parent component will handle the error event
+            // and display the error message using notie
+            this.$emit('error', data.message)
           } else {
             this.user = data
             this.user.password = ''
@@ -131,25 +130,14 @@ export default {
         .then(response => response.json())
         .then(data => {
           if (data.error) {
-            notie.alert({
-              type: 'error',
-              text: data.message,
-              time: 3
-            })
+            this.$emit('error', data.message)
           } else {
-            notie.alert({
-              type: 'success',
-              text: 'User saved successfully',
-              time: 3
-            })
+            this.$emit('success', 'User saved successfully')
+            router.push('/admin/users') // redirect to the users list page
         }
       })
       .catch(() => {
-        notie.alert({
-          type: 'error',
-          text: 'An error occurred while saving the user',
-          time: 3
-        })
+        this.$emit('error', 'An error occurred while saving the user')
       })
     },
     confirmDelete(id) {
@@ -165,25 +153,14 @@ export default {
             .then(response => response.json())
             .then(data => {
               if (data.error) {
-                notie.alert({
-                  type: 'error',
-                  text: data.message,
-                  time: 3
-                })
+                this.$emit('error', data.message)
               } else {
-                notie.alert({
-                  type: 'success',
-                  text: 'User deleted successfully',
-                  time: 3
-                })
+                this.$emit('success', 'User deleted successfully')
+                router.push('/admin/users')
               }
             })
             .catch(() => {
-              notie.alert({
-                type: 'error',
-                text: 'An error occurred while deleting the user',
-                time: 3
-              })
+              this.$emit('error', 'An error occurred while deleting the user')
             })
         }
       })
