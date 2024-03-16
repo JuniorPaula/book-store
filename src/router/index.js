@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
+import { Security } from '../components/security.js'
 import Body from '../components/Body.vue'
 import Login from '../components/Login.vue'
 import Books from '../components/Books.vue'
@@ -52,4 +53,8 @@ const routes = [
 ]
 
 const router = createRouter({history: createWebHistory(), routes})
+// check token on every route change
+router.beforeEach(() => {
+  Security.checkToken();
+})
 export default router
