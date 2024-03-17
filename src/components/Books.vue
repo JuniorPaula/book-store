@@ -5,7 +5,7 @@
         <h1 class="mt-3">Books</h1>
 
         <hr />
-        <div class="filters text-center mb-3">
+        <div class="filters text-center">
           <span class="filter me-1" v-bind:class="{ active: currentFilter === 0 }" v-on:click="setFilter(0)">ALL</span>
           <span class="filter me-1" :class="{ active: currentFilter === 7 }" @click="setFilter(7)">CLASSIC</span>
           <span class="filter me-1" :class="{ active: currentFilter === 2 }" @click="setFilter(2)">FANTASY</span>
@@ -17,7 +17,7 @@
 
         <div>
           <div class="card-group">
-            <div class="p-3 d-flex flex-wrap">
+            <TransitionGroup class="p-3 d-flex flex-wrap" tag="div" appear name="books">
               <div v-for="b in this.books" :key="b.id">
                 <div class="card me-2 ms-1 mb-3" style="width: 10rem;"
                   v-if="b.genre_ids.includes(currentFilter) || currentFilter === 0">
@@ -35,7 +35,7 @@
                   </div>
                 </div>
               </div>
-            </div>
+            </TransitionGroup>
           </div>
         </div>
       </div>
@@ -84,6 +84,9 @@ export default {
 .book-author, book.genre {
   font-size: 0.8em;
 }
+.filters {
+  height: 2.5em;
+}
 .filter {
   padding: 6px 6px;
   cursor: pointer;
@@ -98,5 +101,18 @@ export default {
 .filter:hover {
   background-color: #4a9bec;
   color: #fff;
+}
+/** transictions styles */
+.books-move {
+  transition: all 500ms ease-in-out 50ms;
+}
+.books-enter-active {
+  transition: all 500ms ease-in-out;
+}
+.books-leave-active {
+  transition: all 500ms ease-in;
+}
+.books-enter, .books-leave-to {
+  opacity: 0;
 }
 </style>
