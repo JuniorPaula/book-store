@@ -46,6 +46,8 @@ export default {
         this.$emit('error', error.message)
       })
   },
-  deactivated() {}
+  deactivated() {
+    this.ready = false
+  }
 }
 </script>
