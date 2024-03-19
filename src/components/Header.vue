@@ -52,8 +52,8 @@ import { Security } from './security.js'
 import { store } from './store.js'
 import router from '../router/index.js'
 
-console.log(store)
 export default {
+  name: 'Header',
   data() {
     return {
       store

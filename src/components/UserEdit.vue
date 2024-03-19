@@ -91,6 +91,7 @@ import notie from 'notie'
 import router from '../router/index.js'
 
 export default {
+  name: 'UserEdit',
   beforeMount() {
     Security.requireToken()
 

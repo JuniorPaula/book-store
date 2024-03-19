@@ -30,15 +30,14 @@
 import { Security } from './security.js'
 
 export default {
+  name: 'BooksAdmin',
   data() {
     return {
       books: {},
       ready: false,
     }
   },
-  // Add the activated lifecycle hook, which will be called when the component is navigated to.
-  // Inside the activated lifecycle hook, fetch the books from the API and set the books data property.
-  activated() {
+  mounted() {
     Security.requireToken()
 
     fetch(`${process.env.VUE_APP_API_URL}/books`)
@@ -52,10 +51,5 @@ export default {
         }
       })
   },
-  // Add the deactivated lifecycle hook, which will be called when the component is navigated away from.
-  // Inside the deactivated lifecycle hook, set the ready data property to false.
-  deactivated() {
-    this.ready = false
-  }
 }
 </script>
