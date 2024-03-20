@@ -17,8 +17,8 @@
               class="form-control" 
               type="file" 
               id="formFile"
-              required a
-              ccept="image/jpeg" 
+              required
+              accept="image/jpeg" 
               @change="loadCoverImage"
             >
             <input v-else 
@@ -63,6 +63,25 @@
             <textarea v-model="book.description" class="form-control" id="description" rows="3"></textarea>
           </div>
 
+          <div class="mb-3">
+            <label for="genres" class="form-label">Genres</label>
+            <select ref="genres" name="genres" id="genres" required size="7" v-model="this.book.genres_ids" class="form-select" multiple>
+              <option v-for="g in this.genres" :value="g.value" :key="g.value">
+                {{ g.text }}
+              </option>
+            </select>
+          </div>
+
+          <hr>
+
+          <div class="float-start">
+            <input type="submit" class="btn btn-primary me-2" value="Save">
+            <router-link to="/admin/books" class="btn btn-secondary">Cancel</router-link>
+          </div>
+          <div class="float-end">
+            <a v-if="this.book.id > 0" class="btn btn-danger" href="javascript:void(0);" @click="confirmDelete(this.book.id)">Delete</a>
+          </div>
+
         </FormTag>
       </div>
     </div>
@@ -74,6 +93,8 @@ import { Security } from './security.js'
 import FormTag from './forms/FormTag.vue'
 import TextInput from './forms/TextInput.vue'
 import SelectInput from './forms/SelectInput.vue'
+import router from '../router/index.js'
+import notie from 'notie'
 
 export default {
   name: 'BookEdit',
@@ -91,7 +112,7 @@ export default {
         id: 0,
         title: '',
         author_id: 0,
-        publication_year: 0,
+        publication_year: '',
         description: '',
         cover: '',
         slug: '',
@@ -112,8 +133,67 @@ export default {
     }
   },
   methods: {
-    submitHandler() {},
-    loadCoverImage() {}
+    submitHandler() {
+      const payload = {
+        id: this.book.id,
+        title: this.book.title,
+        author_id: parseInt(this.book.author_id, 10),
+        publication_year: parseInt(this.book.publication_year, 10),
+        description: this.book.description,
+        cover: this.book.cover,
+        slug: this.book.slug,
+        genres_ids: this.book.genres_ids,
+      }
+
+      fetch(`${process.env.VUE_APP_API_URL}/admin/books/save`, Security.requestOptions(payload))
+        .then(response => response.json())
+        .then(data => {
+          if (data.error) {
+            this.$emit('error', data.message)
+          } else {
+            this.$emit('success', data.message)
+            router.push('/admin/books')
+          }
+        })
+        .catch((error) => {
+          this.$emit('error', error)
+        })
+    },
+    loadCoverImage() {
+      // get a reference to the input ref
+      const file = this.$refs.coverInput.files[0]
+
+      // encode the file using FileReader API
+      const reader = new FileReader()
+      reader.onloadend = () => {
+        const base64String = reader.result.replace('data:', '').replace(/^.+,/, '')
+        this.book.cover = base64String
+      }
+      reader.readAsDataURL(file)
+    },
+    confirmDelete(id) {
+      notie.confirm({
+        text: 'Are you sure you want to delete this book?',
+        submitText: 'Delete',
+        submitCallback: () => {
+          const payload = { id: id }
+
+          fetch(`${process.env.VUE_APP_API_URL}/admin/books/delete`, Security.requestOptions(payload))
+            .then(response => response.json())
+            .then(data => {
+              if (data.error) {
+                this.$emit('error', data.message)
+              } else {
+                this.$emit('success', data.message)
+                router.push('/admin/books')
+              }
+            })
+            .catch((error) => {
+              this.$emit('error', error)
+            })
+        }
+      })
+    },
   }
 }
 </script>
