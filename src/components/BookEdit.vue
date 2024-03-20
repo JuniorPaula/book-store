@@ -25,8 +25,7 @@
               ref="coverInput" 
               class="form-control" 
               type="file" 
-              id="formFile"
-              required 
+              id="formFile" 
               accept="image/jpeg" 
               @change="loadCoverImage"
             >
@@ -104,8 +103,20 @@ export default {
     // get book for edit if id > 0
     if (this.$route.params['bookId'] > 0) {
       // get book and edit
-    } else {
-      // adding a book
+      fetch(`${process.env.VUE_APP_API_URL}/admin/books/${this.$route.params['bookId']}`, Security.requestOptions(''))
+        .then(response => response.json())
+        .then(data => {
+          if (data.error) {
+            this.$emit('error', data.message)
+          } else {
+            this.book = data.data
+            this.book.publication_year = this.book.publication_year.toString()
+            this.book.genres_ids = this.book.genres.map(g => g.id)
+          }
+        })
+        .catch((error) => {
+          this.$emit('error', error)
+        })
     }
 
     // get list of authors for the select
@@ -218,3 +229,9 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.book-cover{
+  max-width: 10em;
+}
+</style>
