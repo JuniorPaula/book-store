@@ -80,6 +80,7 @@
           <div class="float-end">
             <a v-if="this.book.id > 0" class="btn btn-danger" href="javascript:void(0);" @click="confirmDelete(this.book.id)">Delete</a>
           </div>
+          <div class="clearfix"></div>
 
         </FormTag>
       </div>
