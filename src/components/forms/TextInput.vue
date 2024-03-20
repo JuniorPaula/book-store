@@ -47,7 +47,6 @@ export default {
     },
     max: {
       type: Number,
-      default: 100
     },
     modelValue: {
       type: String,

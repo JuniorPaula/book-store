@@ -7,8 +7,9 @@
       :required="required" 
       class="form-select"
       :multiple="multiple"
-      :value="modelValue">
+      :value="modelValue"
       @input="$emit('update:modelValue', $event.target.value)"
+    >
       <option value="" disabled>Choose...</option>
       <option v-for="option in items" :value="option.value" :key="option.value">
         {{ option.text }}
