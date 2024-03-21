@@ -1,13 +1,13 @@
 <template>
   <div class="container">
     <div class="row">
-      <div class="col">
-        <h1 class="mt-3">All Users</h1>
+      <div class="col-md-12">
+        <h1 class="admin-users-title">All Users</h1>
       </div>
       <hr>
 
-      <table v-if="this.ready" class="table table-compact table-striped">
-        <thead>
+      <table v-if="this.ready" class="table table-compact table-striped table-hover">
+        <thead style="background-color: #33AFFF; color: #fff;">
           <tr>
             <th>User</th>
             <th>Email</th>
@@ -103,3 +103,10 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.admin-users-title {
+  margin-bottom: 20px;
+  margin-top: 20px;
+}
+</style>

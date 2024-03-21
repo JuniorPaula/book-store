@@ -2,7 +2,10 @@
   <div class="container">
     <div class="row">
       <div class="col">
-        <h1 class="mt-3">Add/Edit Book</h1>
+        <h1 class="mt-3">
+          <span v-if="this.$route.params.bookId > 0">Edit Book</span>
+          <span v-else >Add New Book</span>
+        </h1>
         <hr>
 
         <FormTag @bookEditEvent="submitHandler" name="bookForm" event="bookEditEvent">

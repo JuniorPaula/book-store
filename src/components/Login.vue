@@ -1,14 +1,16 @@
 <template>
   <div class="container">
     <div class="row">
-      <div class="col">
-        <h1>Login</h1>
-        <hr>
-        <form-tag @submitEvent="submitHandler" name="myform" event="submitEvent">
-          <text-input v-model="email" label="Email" name="email" type="email" :required="true"></text-input>
-          <text-input v-model="password" label="Password" name="password" type="password" :required="true"></text-input>
-          <input type="submit" class="btn btn-primary" value="Login">
-        </form-tag>
+      <div class="col-md-12">
+        <div class="login-container">
+          <h1 class="login-title">Login</h1>
+          <hr>
+          <form-tag @submitEvent="submitHandler" name="myform" event="submitEvent">
+            <text-input v-model="email" label="Email" name="email" type="email" :required="true"></text-input>
+            <text-input v-model="password" label="Password" name="password" type="password" :required="true"></text-input>
+            <input type="submit" class="btn login-btn" value="Login">
+          </form-tag>
+        </div>
       </div>
     </div>
   </div>
@@ -84,5 +86,37 @@ export default {
 </script>
 
 <style>
+.login-container {
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  box-shadow: 0 0 10px #ddd;
+  max-width: 400px;
+  margin: 100px auto 0 auto;
+}
+.login-title {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 2em;
+}
+.login-btn {
+  width: 100%;
+  margin-top: 20px;
+  background-color: #33AFFF;
+  color: #fff;
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.35s;
+}
+
+.login-container input[type="email"], .login-container input[type="password"] {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
 
 </style>

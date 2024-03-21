@@ -1,7 +1,7 @@
 <template>
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <nav class="navbar navbar-expand-lg">
     <div class="container-fluid">
-      <a class="navbar-brand" href="#">Navbar</a>
+      <router-link class="navbar-brand text-uppercase" to="/">Book store</router-link>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -34,14 +34,14 @@
               </li>
             </ul>
           </li>
-
-          <li class="nav-item">
-            <router-link v-if="store.token == ''" class="nav-link" to="/login">Login</router-link>
-            <a href="javascript:void(0);" v-else class="nav-link" @click="logout">Logout</a>
-          </li>
         </ul>
 
-        <span class="navbar-text">{{ store.user.first_name ?? '' }}</span>
+        <div class="navbar-nav d-flex">
+            <span class="nav-link mr-5">{{ store.user.first_name ?? '' }}</span>
+
+            <router-link v-if="store.token == ''" class="nav-link me-2" to="/login">Login</router-link>
+            <a href="javascript:void(0);" v-else class="nav-link me-2" @click="logout">Logout</a>
+        </div>
       </div>
     </div>
   </nav>
@@ -89,5 +89,33 @@ export default {
 </script>
 
 <style>
+.navbar {
+  background-color: #33AFFF;
+}
+
+.navbar-brand {
+  font-size: 1.5rem;
+  font-weight: 400;
+  color: #fff;
+}
+
+.navbar-brand:hover {
+  color: #fff;
+  text-decoration: none;
+}
+
+.nav-link {
+  color: #fff;
+}
+
+.nav-link:hover {
+  color: #fff;
+  text-decoration: none;
+}
+
+.nav-link.active {
+  color: #fff;
+  text-decoration: none;
+}
 
 </style>

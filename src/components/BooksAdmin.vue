@@ -5,8 +5,8 @@
         <h1 class="mt-3">Manage Books</h1>
         <hr>
 
-        <table v-if="this.ready" class="table table-striped table-compact">
-          <thead>
+        <table v-if="this.ready" class="table table-striped table-compact table-hover">
+          <thead style="background-color: #33AFFF; color: #fff;">
             <tr>
               <th>Book</th>
               <th>Author</th>
