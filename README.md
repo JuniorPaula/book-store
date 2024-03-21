@@ -1,24 +1,28 @@
-# frontend
+# Book Management Application
 
-## Project setup
-```
+This is a Vue.js application for managing books. It allows you to add new books and edit existing ones.
+
+Dependencies clone the repo:
+<http://localhost:8080>
+
+## Setup
+
+  
+
+To set up this project locally, you need to have Node.js and npm installed. Then, you can clone the repository and install the dependencies:
+
+  
+
+```bash
+
+git clone
+
+cd repository
+
 npm install
 ```
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+To start the application, run:
 
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+npm run  serve
+The application will be available at `http://localhost:8080`
