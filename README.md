@@ -3,7 +3,7 @@
 This is a Vue.js application for managing books. It allows you to add new books and edit existing ones.
 
 Dependencies clone the repo:
-<http://localhost:8080>
+[API-Book-store](https://github.com/JuniorPaula/book-store-api)
 
 ## Setup
 
